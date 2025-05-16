@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="shortcut icon" type="x-icon" href="Logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student Course Allocation System</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Student Course Allocation System</h1>
+
+    <form id="studentForm">
+      <input type="hidden" id="editStudentIndex" value="-1" />
+      <div class="form-group">
+        <label for="rollNo">Roll No:</label>
+        <input type="number" id="rollNo" required min="1" />
+      </div>
+      <div class="form-group">
+        <label for="studentName">Student Name:</label>
+        <input type="text" id="studentName" required />
+      </div>
+      <div class="form-group">
+        <label for="semester">Semester:</label>
+        <input type="number" id="semester" required min="1" max="8" />
+      </div>
+      <div class="form-group">
+        <label for="completed">Completed Courses (comma separated):</label>
+        <input type="text" id="completed" placeholder="e.g. Programming Fundamentals, Discrete Structures" />
+      </div>
+      <button type="submit">Add / Update Student</button>
+    </form>
+
+    <div id="output" class="table-container"></div>
+
+    <div class="chart-container">
+      <canvas id="chart"></canvas>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
