@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+function handleDOMContentLoaded(){
   const output = document.getElementById("output");
   const studentForm = document.getElementById("studentForm");
   const editStudentIndexInput = document.getElementById("editStudentIndex");
@@ -138,8 +138,9 @@ document.addEventListener("DOMContentLoaded", () => {
     allocateCourses();
   });
 
-  allocateCourses();
-});
+  allocateCourses();}
+
+document.addEventListener("DOMContentLoaded", handleDOMContentLoaded);
 
 window.editStudent = function (index) {
   const student = window.students[index];
