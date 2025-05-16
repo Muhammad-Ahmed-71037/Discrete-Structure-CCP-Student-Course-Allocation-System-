@@ -1,11 +1,10 @@
-function handleDOMContentLoaded(){
+function handleDOMContentLoadedEvent(){
   const output = document.getElementById("output");
   const studentForm = document.getElementById("studentForm");
   const editStudentIndexInput = document.getElementById("editStudentIndex");
   const rollNoInput = document.getElementById("rollNo");
   const studentNameInput = document.getElementById("studentName");
   const semesterInput = document.getElementById("semester");
-  const completedInput = document.getElementById("completed");
   let myChart;
 
   function allocateCourses() {
@@ -116,15 +115,31 @@ function handleDOMContentLoaded(){
     const rollNo = rollNoInput.value.trim();
     const name = studentNameInput.value.trim();
     const semester = parseInt(semesterInput.value);
-    const completed = completedInput.value
-      .split(",")
-      .map((c) => c.trim())
-      .filter((c) => c);
-
     const editIndex = parseInt(editStudentIndexInput.value);
 
+    function canComplete(course, completedCourses) {
+      return course.prerequisites.every(prereq => completedCourses.includes(prereq));
+    }
+
+    const completed = [];
+    let madeProgress = true;
+
+    while (madeProgress) {
+      madeProgress = false;
+      for (const course of window.courses) {
+        if (
+          semester > course.minSemester &&
+          !completed.includes(course.name) &&
+          canComplete(course, completed)
+        ) {
+          completed.push(course.name);
+          madeProgress = true;
+        }
+      }
+    }
+
     if (editIndex === -1) {
-      if (window.students.some((s) => s.rollNo === rollNo)) {
+      if (window.students.some((s) => s.rollNo == rollNo)) {
         alert("Roll No already exists!");
         return;
       }
@@ -138,16 +153,16 @@ function handleDOMContentLoaded(){
     allocateCourses();
   });
 
-  allocateCourses();}
+  allocateCourses();
+}
 
-document.addEventListener("DOMContentLoaded", handleDOMContentLoaded);
+document.addEventListener("DOMContentLoaded", handleDOMContentLoadedEvent);
 
 window.editStudent = function (index) {
   const student = window.students[index];
   document.getElementById("rollNo").value = student.rollNo;
   document.getElementById("studentName").value = student.name;
   document.getElementById("semester").value = student.semester;
-  document.getElementById("completed").value = student.completed.join(", ");
   document.getElementById("editStudentIndex").value = index;
 };
 

@@ -20,7 +20,6 @@ window.students = [
   { rollNo: 71037, name: 'Muhammad Ahmed', semester: 6, completed: [] },
   { rollNo: 71035, name: 'Farjad Aleem', semester: 7, completed: [] },
   { rollNo: 71425, name: 'Muhammad Ahmed', semester: 8, completed: [] },
-
 ];
 
 function autoAssignCompletedCourses() {
